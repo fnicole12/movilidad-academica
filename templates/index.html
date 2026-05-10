@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Movilidad Académica</title>
+</head>
+<body>
+
+<h1>Materias normalizadas</h1>
+
+<table border="1">
+
+    <tr>
+        <th>Semestre</th>
+        <th>Materia UAG</th>
+        <th>Universidad</th>
+        <th>Materia Equivalente</th>
+    </tr>
+
+    {% for r in registros %}
+
+    <tr>
+        <td>{{ r.semestre }}</td>
+        <td>{{ r.materia_uag }}</td>
+        <td>{{ r.universidad }}</td>
+        <td>{{ r.materia_equivalente }}</td>
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+</body>
+</html>

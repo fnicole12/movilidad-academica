@@ -6,29 +6,120 @@
 </head>
 <body>
 
-<h1>Materias normalizadas</h1>
+<h1>Sistema de Movilidad Académica</h1>
 
-<table border="1">
+<h2>Formulario de Consulta</h2>
 
-    <tr>
-        <th>Semestre</th>
-        <th>Materia UAG</th>
-        <th>Universidad</th>
-        <th>Materia Equivalente</th>
-    </tr>
+<form method="POST">
 
-    {% for r in registros %}
+    <label>Nombre:</label>
+    <input type="text" name="nombre">
 
-    <tr>
-        <td>{{ r.semestre }}</td>
-        <td>{{ r.materia_uag }}</td>
-        <td>{{ r.universidad }}</td>
-        <td>{{ r.materia_equivalente }}</td>
-    </tr>
+    <br><br>
 
-    {% endfor %}
+    <label>Registro:</label>
+    <input type="text" name="registro">
 
-</table>
+    <br><br>
+
+    <label>Carrera:</label>
+
+    <select name="carrera">
+
+        <option value="software">
+            Ingeniería de Software
+        </option>
+
+    </select>
+    <br><br>
+
+    <label>Semestre:</label>
+
+    <select name="semestre">
+
+        <option value="">
+            Todos
+        </option>
+
+        {% for semestre in semestres %}
+
+        <option
+            value="{{ semestre }}"
+
+            {% if semestre == semestre_seleccionado %}
+                selected
+            {% endif %}
+        >
+            {{ semestre }}
+        </option>
+
+        {% endfor %}
+
+    </select>
+    <br><br>
+
+    <select name="universidad">
+
+        <option value="">
+            Todas
+        </option>
+
+        {% for universidad in universidades %}
+
+        <option
+            value="{{ universidad }}"
+
+            {% if universidad == universidad_seleccionada %}
+                selected
+            {% endif %}
+        >
+            {{ universidad }}
+        </option>
+
+        {% endfor %}
+
+    </select>
+
+    <br><br>
+
+    <button type="submit">
+        Buscar
+    </button>
+
+</form>
+
+<hr>
+
+{% if busqueda_realizada %}
+
+    {% if registros|length == 0 %}
+        <p>No se encontraron equivalencias.</p>
+    {% endif %}
+
+    <h2>Resultados</h2>
+    {% if registros|length > 0 %}
+    <table border="1">
+        <tr>
+            <th>Semestre</th>
+            <th>Materia UAG</th>
+            <th>Universidad</th>
+            <th>Materia Equivalente</th>
+        </tr>
+
+        {% for r in registros %}
+
+        <tr>
+            <td>{{ r.semestre }}</td>
+            <td>{{ r.materia_uag }}</td>
+            <td>{{ r.universidad }}</td>
+            <td>{{ r.materia_equivalente }}</td>
+        </tr>
+
+        {% endfor %}
+    </table>
+    {% endif %}
+
+{% endif %}
 
 </body>
 </html>

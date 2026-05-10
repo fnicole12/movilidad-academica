@@ -40,6 +40,10 @@ def home():
         universidad = r["universidad"]
         if universidad not in universidades:
             universidades.append(universidad)
+    
+    # Resetear universidad inválida
+    if universidad_seleccionada not in universidades:
+        universidad_seleccionada = ""
 
     # Filtro semestre
     if semestre_seleccionado != "":

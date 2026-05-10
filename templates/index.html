@@ -3,24 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Movilidad Académica</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-
-<h1>Sistema de Movilidad Académica</h1>
-
-<h2>Formulario de Consulta</h2>
+<div class="container">
+    <div class="header">
+        <h1>Sistema de Movilidad Académica</h1>
+        <p>
+            Consulta equivalencias académicas
+            para programas de intercambio UAG.
+        </p>
+    </div>
+    <div class="form-card">
+        <h2>Formulario de Consulta</h2>
 
 <form method="POST">
 
     <label>Nombre:</label>
     <input type="text" name="nombre" value="{{ nombre }}">
 
-    <br><br>
 
     <label>Registro:</label>
     <input type="text" name="registro" value="{{ registro }}">
 
-    <br><br>
 
     <label>Carrera:</label>
     <select name="carrera">
@@ -36,7 +41,6 @@
         {% endfor %}
     </select>
 
-    <br><br>
 
     <label>Semestre:</label>
     <select name="semestre">
@@ -56,7 +60,6 @@
         {% endfor %}
     </select>
 
-    <br><br>
 
     <select name="universidad">
         <option value="">
@@ -75,13 +78,13 @@
         {% endfor %}
     </select>
 
-    <br><br>
 
     <button type="submit">
         Buscar
     </button>
 
 </form>
+</div>
 
 <hr>
 
@@ -116,5 +119,6 @@
 
 {% endif %}
 
+</div>
 </body>
 </html>

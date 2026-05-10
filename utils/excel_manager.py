@@ -1,18 +1,23 @@
 import pandas as pd
 
+#AGREGAR NUEVAS CARRERAS
 SHEETS_CARRERA = {
     "software": {
+        "nombre": "Ingeniería de Software",
         "archivo": "data/materias.xlsx",
         "sheet": "MAPEO IDS"
     },
-    # "automotriz": {
-    #     "archivo": "data/materias.xlsx",
-    #     "sheet": "MAPEO ITA"
-    # }
+    "automotriz": {
+        "nombre": "Ingeniería Automotriz",
+        "archivo": "data/materias.xlsx",
+        "sheet": "MAPEO ITA"
+    }
 }
 
-def cargar_y_normalizar(carrera):
+def obtener_carreras():
+    return SHEETS_CARRERA
 
+def cargar_y_normalizar(carrera):
     info = SHEETS_CARRERA.get(carrera)
 
     if not info:
@@ -116,3 +121,22 @@ def cargar_y_normalizar(carrera):
         print(f"Error procesando Excel: {e}")
 
         return []
+    
+def guardar_historial(datos):
+    archivo_historial = "data/historial_consultas.xlsx"
+    nuevo_registro = pd.DataFrame([datos])
+    try:
+        historial_existente = pd.read_excel(
+            archivo_historial
+        )
+        historial_actualizado = pd.concat(
+            [historial_existente, nuevo_registro],
+            ignore_index=True
+        )
+    except FileNotFoundError:
+        historial_actualizado = nuevo_registro
+
+    historial_actualizado.to_excel(
+        archivo_historial,
+        index=False
+    )

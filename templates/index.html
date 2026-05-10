@@ -13,36 +13,37 @@
 <form method="POST">
 
     <label>Nombre:</label>
-    <input type="text" name="nombre">
+    <input type="text" name="nombre" value="{{ nombre }}">
 
     <br><br>
 
     <label>Registro:</label>
-    <input type="text" name="registro">
+    <input type="text" name="registro" value="{{ registro }}">
 
     <br><br>
 
     <label>Carrera:</label>
-
     <select name="carrera">
-
-        <option value="software">
-            Ingeniería de Software
+        {% for key, info in carreras.items() %}
+        <option
+            value="{{ key }}"
+            {% if key == carrera %}
+                selected
+            {% endif %}
+        >
+            {{ info.nombre }}
         </option>
-
+        {% endfor %}
     </select>
+
     <br><br>
 
     <label>Semestre:</label>
-
     <select name="semestre">
-
         <option value="">
             Todos
         </option>
-
         {% for semestre in semestres %}
-
         <option
             value="{{ semestre }}"
 
@@ -52,20 +53,16 @@
         >
             {{ semestre }}
         </option>
-
         {% endfor %}
-
     </select>
+
     <br><br>
 
     <select name="universidad">
-
         <option value="">
             Todas
         </option>
-
         {% for universidad in universidades %}
-
         <option
             value="{{ universidad }}"
 
@@ -75,9 +72,7 @@
         >
             {{ universidad }}
         </option>
-
         {% endfor %}
-
     </select>
 
     <br><br>

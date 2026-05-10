@@ -28,10 +28,15 @@ def home():
         if semestre not in semestres:
             semestres.append(semestre)
 
-    # Obtener universidades únicas
+    # Obtener universidades según semestre
+    registros_para_universidades = registros
+    if semestre_seleccionado != "":
+        registros_para_universidades = [
+            r for r in registros
+            if r["semestre"] == semestre_seleccionado
+        ]
     universidades = []
-
-    for r in registros:
+    for r in registros_para_universidades:
         universidad = r["universidad"]
         if universidad not in universidades:
             universidades.append(universidad)

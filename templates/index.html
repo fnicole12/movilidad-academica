@@ -5,6 +5,7 @@
     <title>Movilidad Académica</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
 <body>
 <div class="container">
     <div class="header">
@@ -17,7 +18,7 @@
     <div class="form-card">
         <h2>Formulario de Consulta</h2>
 
-<form method="POST">
+<form method="POST" id="filtro-form">
 
     <label>Nombre:</label>
     <input type="text" name="nombre" value="{{ nombre }}">
@@ -28,7 +29,7 @@
 
 
     <label>Carrera:</label>
-    <select name="carrera">
+    <select name="carrera" onchange="reiniciarFiltros()">
         {% for key, info in carreras.items() %}
         <option
             value="{{ key }}"
@@ -60,7 +61,7 @@
         {% endfor %}
     </select>
 
-
+    <label>Universidad:</label>
     <select name="universidad">
         <option value="">
             Todas
@@ -84,10 +85,7 @@
     </button>
 
 </form>
-</div>
-
-<hr>
-
+</div class="results-section">
 {% if busqueda_realizada %}
 
     {% if registros|length == 0 %}

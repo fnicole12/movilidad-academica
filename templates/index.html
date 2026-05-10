@@ -56,6 +56,25 @@
         {% endfor %}
 
     </select>
+    <br><br>
+
+    <label>Universidad:</label>
+
+    <select name="universidad">
+
+        <option value="">
+            Todas
+        </option>
+
+        {% for universidad in universidades %}
+
+        <option value="{{ universidad }}">
+            {{ universidad }}
+        </option>
+
+        {% endfor %}
+
+    </select>
 
     <br><br>
 

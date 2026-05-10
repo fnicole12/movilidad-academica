@@ -28,6 +28,17 @@ def home():
 
             semestres.append(semestre)
 
+    # Obtener universidades únicas
+    universidades = []
+
+    for r in registros:
+
+        universidad = r["universidad"]
+
+        if universidad not in universidades:
+
+            universidades.append(universidad)
+
     # Filtrar por semestre
     if semestre_seleccionado != "":
 
@@ -42,6 +53,7 @@ def home():
         "index.html",
         registros=registros,
         semestres=semestres,
+        universidades=universidades,
         semestre_seleccionado=semestre_seleccionado
     )
 

@@ -1,15 +1,19 @@
 import pandas as pd
 
-ARCHIVOS_CARRERA = {
+SHEETS_CARRERA = {
     "software": {
         "archivo": "data/materias.xlsx",
         "sheet": "MAPEO IDS"
-    }
+    },
+    # "automotriz": {
+    #     "archivo": "data/materias.xlsx",
+    #     "sheet": "MAPEO ITA"
+    # }
 }
 
 def cargar_y_normalizar(carrera):
 
-    info = ARCHIVOS_CARRERA.get(carrera)
+    info = SHEETS_CARRERA.get(carrera)
 
     if not info:
         return []

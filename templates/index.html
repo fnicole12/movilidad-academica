@@ -10,7 +10,7 @@
 
 <h2>Formulario de Consulta</h2>
 
-<form>
+<form method="POST">
 
     <label>Nombre:</label>
     <input type="text" name="nombre">
@@ -29,6 +29,31 @@
         <option value="software">
             Ingeniería de Software
         </option>
+
+    </select>
+    <br><br>
+
+    <label>Semestre:</label>
+
+    <select name="semestre">
+
+        <option value="">
+            Todos
+        </option>
+
+        {% for semestre in semestres %}
+
+        <option
+            value="{{ semestre }}"
+
+            {% if semestre == semestre_seleccionado %}
+                selected
+            {% endif %}
+        >
+            {{ semestre }}
+        </option>
+
+        {% endfor %}
 
     </select>
 

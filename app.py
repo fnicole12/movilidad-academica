@@ -1,11 +1,15 @@
 from flask import Flask, render_template, request
 from utils.excel_manager import cargar_y_normalizar
+from utils.excel_manager import (
+    cargar_y_normalizar,
+    guardar_historial,
+    obtener_carreras
+)
 
 app = Flask(__name__)
 
 @app.route("/", methods=["GET", "POST"])
 def home():
-
     carrera = "software"
     semestre_seleccionado = ""
     universidad_seleccionada = ""
@@ -15,6 +19,8 @@ def home():
         carrera = request.form.get("carrera")
         semestre_seleccionado = request.form.get("semestre")
         universidad_seleccionada = request.form.get("universidad")
+        nombre = request.form.get("nombre")
+        registro = request.form.get("registro")
         
         busqueda_realizada = True
 
@@ -22,7 +28,6 @@ def home():
 
     # Obtener semestres únicos
     semestres = []
-
     for r in registros:
         semestre = r["semestre"]
         if semestre not in semestres:
@@ -63,8 +68,21 @@ def home():
     if not busqueda_realizada:
         registros = []
 
+    if busqueda_realizada:
+        guardar_historial({
+            "nombre": nombre,
+            "registro": registro,
+            "carrera": carrera,
+            "semestre": semestre_seleccionado,
+            "universidad": universidad_seleccionada
+        })
+    
+    carreras = obtener_carreras()
+
     return render_template(
         "index.html",
+        carreras=carreras,
+        carrera=carrera,
         registros=registros,
         semestres=semestres,
         universidades=universidades,

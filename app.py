@@ -14,6 +14,8 @@ def home():
     semestre_seleccionado = ""
     universidad_seleccionada = ""
     busqueda_realizada = False
+    nombre = ""
+    registro = ""
 
     if request.method == "POST":
         carrera = request.form.get("carrera")
@@ -81,6 +83,8 @@ def home():
 
     return render_template(
         "index.html",
+        nombre=nombre,
+        registro=registro,
         carreras=carreras,
         carrera=carrera,
         registros=registros,

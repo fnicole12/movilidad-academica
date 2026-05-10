@@ -58,8 +58,6 @@
     </select>
     <br><br>
 
-    <label>Universidad:</label>
-
     <select name="universidad">
 
         <option value="">
@@ -68,7 +66,13 @@
 
         {% for universidad in universidades %}
 
-        <option value="{{ universidad }}">
+        <option
+            value="{{ universidad }}"
+
+            {% if universidad == universidad_seleccionada %}
+                selected
+            {% endif %}
+        >
             {{ universidad }}
         </option>
 

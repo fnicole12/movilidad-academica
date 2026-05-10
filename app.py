@@ -7,13 +7,17 @@ app = Flask(__name__)
 def home():
 
     carrera = "software"
+
     semestre_seleccionado = ""
+    universidad_seleccionada = ""
 
     if request.method == "POST":
 
         carrera = request.form.get("carrera")
 
         semestre_seleccionado = request.form.get("semestre")
+
+        universidad_seleccionada = request.form.get("universidad")
 
     registros = cargar_y_normalizar(carrera)
 
@@ -39,7 +43,7 @@ def home():
 
             universidades.append(universidad)
 
-    # Filtrar por semestre
+    # Filtro semestre
     if semestre_seleccionado != "":
 
         registros = [
@@ -49,12 +53,23 @@ def home():
             if r["semestre"] == semestre_seleccionado
         ]
 
+    # Filtro universidad
+    if universidad_seleccionada != "":
+
+        registros = [
+
+            r for r in registros
+
+            if r["universidad"] == universidad_seleccionada
+        ]
+
     return render_template(
         "index.html",
         registros=registros,
         semestres=semestres,
         universidades=universidades,
-        semestre_seleccionado=semestre_seleccionado
+        semestre_seleccionado=semestre_seleccionado,
+        universidad_seleccionada=universidad_seleccionada
     )
 
 if __name__ == "__main__":

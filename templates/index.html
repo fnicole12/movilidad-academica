@@ -92,29 +92,32 @@
 
 {% if busqueda_realizada %}
 
-<h2>Resultados</h2>
+    {% if registros|length == 0 %}
+        <p>No se encontraron equivalencias.</p>
+    {% endif %}
 
-<table border="1">
+    <h2>Resultados</h2>
+    {% if registros|length > 0 %}
+    <table border="1">
+        <tr>
+            <th>Semestre</th>
+            <th>Materia UAG</th>
+            <th>Universidad</th>
+            <th>Materia Equivalente</th>
+        </tr>
 
-    <tr>
-        <th>Semestre</th>
-        <th>Materia UAG</th>
-        <th>Universidad</th>
-        <th>Materia Equivalente</th>
-    </tr>
+        {% for r in registros %}
 
-    {% for r in registros %}
+        <tr>
+            <td>{{ r.semestre }}</td>
+            <td>{{ r.materia_uag }}</td>
+            <td>{{ r.universidad }}</td>
+            <td>{{ r.materia_equivalente }}</td>
+        </tr>
 
-    <tr>
-        <td>{{ r.semestre }}</td>
-        <td>{{ r.materia_uag }}</td>
-        <td>{{ r.universidad }}</td>
-        <td>{{ r.materia_equivalente }}</td>
-    </tr>
-
-    {% endfor %}
-
-</table>
+        {% endfor %}
+    </table>
+    {% endif %}
 
 {% endif %}
 

@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request
-from utils.excel_manager import cargar_y_normalizar
 from utils.excel_manager import (
     cargar_y_normalizar,
     guardar_historial,
@@ -26,20 +25,30 @@ def home():
         
         busqueda_realizada = True
 
-    registros = cargar_y_normalizar(carrera)
+    registros_base = cargar_y_normalizar(carrera)
+    registros = registros_base.copy()
+    
+    # Resetear filtros si no hay registros
+    if not registros:
+        semestre_seleccionado = ""
+        universidad_seleccionada = ""
 
     # Obtener semestres únicos
     semestres = []
-    for r in registros:
+    for r in registros_base:
         semestre = r["semestre"]
         if semestre not in semestres:
             semestres.append(semestre)
 
+    # Resetear semestre inválido
+    if semestre_seleccionado not in semestres:
+        semestre_seleccionado = ""
+
     # Obtener universidades según semestre
-    registros_para_universidades = registros
+    registros_para_universidades = registros_base
     if semestre_seleccionado != "":
         registros_para_universidades = [
-            r for r in registros
+            r for r in registros_base
             if r["semestre"] == semestre_seleccionado
         ]
     universidades = []
